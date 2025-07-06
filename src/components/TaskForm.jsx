@@ -29,20 +29,36 @@ function TaskForm({ onAdd, onEdit, editingTask }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="task-form">
-      <input
-        placeholder="Task title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        required
-      />
-      <input
-        placeholder="Task description"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-      />
-      <button type="submit">{editingTask ? "Update" : "Add"} Task</button>
-    </form>
+    <div className="task-form-container">
+      <div className="task-form">
+        <div className="form-header">
+          <h3>{editingTask ? "🌿 Edit Task" : "🌱 Plant New Task"}</h3>
+        </div>
+        <div className="input-group">
+          <input
+            type="text"
+            placeholder="What needs to be done?"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            onKeyPress={(e) => e.key === 'Enter' && handleSubmit(e)}
+            required
+          />
+          <span className="input-icon">✏️</span>
+        </div>
+        <div className="input-group">
+          <textarea
+            placeholder="Add more details..."
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            rows="3"
+          />
+          <span className="input-icon">📝</span>
+        </div>
+        <button onClick={handleSubmit} className="submit-btn">
+          {editingTask ? "🌿 Update Task" : "🌱 Plant Task"}
+        </button>
+      </div>
+    </div>
   );
 }
 

@@ -5,19 +5,26 @@ function TaskFilter({ filter, setFilter, tasks }) {
     Pending: tasks.filter((t) => !t.completed).length,
   };
 
+  const filterIcons = {
+    All: "🌿",
+    Completed: "✅",
+    Pending: "🌱"
+  };
+
   return (
     <div className="task-filter">
       {["All", "Completed", "Pending"].map((type) => (
         <button
           key={type}
-          className={filter === type ? "active" : ""}
+          className={`filter-btn ${filter === type ? "active" : ""}`}
           onClick={() => setFilter(type)}
         >
-          {type} ({count[type]})
+          <span className="filter-icon">{filterIcons[type]}</span>
+          <span>{type}</span>
+          <span className="count">({count[type]})</span>
         </button>
       ))}
     </div>
   );
 }
-
 export default TaskFilter;

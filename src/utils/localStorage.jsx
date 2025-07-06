@@ -1,11 +1,19 @@
-export const loadTasks = () => {
+// src/utils/localStorage.js
+
+export const loadTasks = (key) => {
   try {
-    return JSON.parse(localStorage.getItem("tasks")) || [];
-  } catch {
+    const data = localStorage.getItem(key);
+    return data ? JSON.parse(data) : [];
+  } catch (error) {
+    console.error("Error loading tasks:", error);
     return [];
   }
 };
 
-export const saveTasks = (tasks) => {
-  localStorage.setItem("tasks", JSON.stringify(tasks));
+export const saveTasks = (key, data) => {
+  try {
+    localStorage.setItem(key, JSON.stringify(data));
+  } catch (error) {
+    console.error("Error saving tasks:", error);
+  }
 };
