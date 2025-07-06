@@ -13,42 +13,52 @@ function App() {
   const [editingTask, setEditingTask] = useState(null);
   const [darkMode, setDarkMode] = useState(false);
 
-  // Load data from localStorage on app start
+  // Load user + theme initially
   useEffect(() => {
-  const savedDarkMode = JSON.parse(localStorage.getItem("darkMode")) || false;
-  const savedUser = localStorage.getItem("username");
-  
+    const savedUser = localStorage.getItem("username");
+    const savedDarkMode = JSON.parse(localStorage.getItem("darkMode")) || false;
 
-  setDarkMode(savedDarkMode);
-  setUser(savedUser);
-}, []);
+    setUser(savedUser);
+    setDarkMode(savedDarkMode);
+  }, []);
 
-
+  // ✅ Load tasks AFTER user is set
   useEffect(() => {
-  localStorage.setItem("tasks", JSON.stringify(tasks));
-}, [tasks]);
+    if (user) {
+      const savedTasks = loadTasks("tasks");
+      setTasks(savedTasks);
+    }
+  }, [user]);
 
-useEffect(() => {
-  localStorage.setItem("darkMode", JSON.stringify(darkMode));
-}, [darkMode]);
+  // ✅ Save tasks
+  useEffect(() => {
+    if (user) saveTasks("tasks", tasks);
+  }, [tasks, user]);
 
-const handleLogin = (username) => {
-  localStorage.setItem("username", username);
-  setUser(username);
+  // ✅ Save dark mode
+  useEffect(() => {
+    localStorage.setItem("darkMode", JSON.stringify(darkMode));
+  }, [darkMode]);
+
+  const handleLogin = (username) => {
+    localStorage.setItem("username", username);
+    setUser(username);
+  };
+
+const handleLogout = () => {
+  localStorage.removeItem("username");
+  localStorage.removeItem("tasks");
+  localStorage.removeItem("darkMode");
+
+  setUser(null);
+  setTasks([]);
+  setFilter("All");
+  setEditingTask(null);
+  setDarkMode(false);
 };
 
-  const handleLogout = () => {
-    localStorage.removeItem("username");
-    setUser(null);
-    setTasks([]);
-    setFilter("All");
-    setEditingTask(null);
-  };
 
-  const addTask = (task) => {
-    const updated = [...tasks, task];
-    setTasks(updated); // auto-persisted via useEffect
-  };
+  const addTask = (task) => setTasks((prev) => [...prev, task]);
 
   const updateTask = (updatedTask) => {
     const updated = tasks.map((t) =>
@@ -58,10 +68,7 @@ const handleLogin = (username) => {
     setEditingTask(null);
   };
 
-  const deleteTask = (id) => {
-    const updated = tasks.filter((t) => t.id !== id);
-    setTasks(updated);
-  };
+  const deleteTask = (id) => setTasks(tasks.filter((t) => t.id !== id));
 
   const toggleTask = (id) => {
     const updated = tasks.map((t) =>

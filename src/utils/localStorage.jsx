@@ -1,4 +1,4 @@
-// src/utils/localStorage.js
+// utils/localStorage.js
 
 export const loadTasks = (key) => {
   try {
