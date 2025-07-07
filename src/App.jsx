@@ -46,17 +46,18 @@ function App() {
   };
 
 const handleLogout = () => {
-  localStorage.removeItem("username");
-  localStorage.removeItem("tasks");
-  localStorage.removeItem("darkMode");
+  if (window.confirm("Are you sure you want to logout and clear all data?")) {
+    localStorage.removeItem("username");
+    localStorage.removeItem("tasks");
+    localStorage.removeItem("darkMode");
 
-  setUser(null);
-  setTasks([]);
-  setFilter("All");
-  setEditingTask(null);
-  setDarkMode(false);
+    setUser(null);
+    setTasks([]);
+    setFilter("All");
+    setEditingTask(null);
+    setDarkMode(false);
+  }
 };
-
 
   const addTask = (task) => setTasks((prev) => [...prev, task]);
 
@@ -88,27 +89,33 @@ const handleLogout = () => {
 
   return (
     <div className={`app ${darkMode ? "dark" : ""}`}>
-      <header className="app-header">
-        <div className="header-left">
-          <div className="logo">
-            <span className="logo-icon">🌱</span>
-            <h1>PlantTask</h1>
-          </div>
-          <p className="welcome-text">Welcome back, {user}!</p>
-        </div>
-        <div className="header-right">
-          <button
-            className="theme-btn"
-            onClick={() => setDarkMode(!darkMode)}
-            title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
-          >
-            {darkMode ? "☀️" : "🌙"}
-          </button>
-          <button className="logout-btn" onClick={handleLogout}>
-            👋 Logout
-          </button>
-        </div>
-      </header>
+<header className="app-header">
+  <div className="header-left">
+    <div className="logo">
+      <span className="logo-icon">🌱</span>
+      <h1>PlantTask</h1>
+    </div>
+    <p className="welcome-text">Welcome back, {user}!</p>
+     <div className="header-right">
+    <button
+      className="theme-btn"
+      onClick={() => setDarkMode(!darkMode)}
+      title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+    >
+      {darkMode ? "☀️" : "🌙"}
+      <span className="theme-text">{darkMode ? "Light" : "Dark"}</span>
+    </button>
+     <button 
+      className="logout-btn" 
+      onClick={handleLogout} 
+      title="Logout and clear data"
+    >
+      ➡️
+      <span className="logout-text">Logout</span>
+    </button>
+  </div>
+  </div>
+</header>
 
       <main className="app-main">
         <TaskForm
@@ -124,6 +131,7 @@ const handleLogout = () => {
           onEdit={setEditingTask}
         />
       </main>
+      
     </div>
   );
 }

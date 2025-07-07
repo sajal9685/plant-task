@@ -145,88 +145,188 @@
   }
 
   /* App Header */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+  background: white;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(10px);
+}
+
+.app.dark .app-header {
+  background: #34495e;
+  color: #ecf0f1;
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex: 1;
+}
+
+.header-left .logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon {
+  font-size: 2rem;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+.header-left .logo h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0;
+}
+
+.welcome-text {
+  color: #666;
+  font-size: 0.95rem;
+  font-weight: 400;
+  margin-left: 8px;
+  padding-left: 8px;
+  border-left: 2px solid #e0e0e0;
+  opacity: 0.8;
+}
+
+.app.dark .welcome-text {
+  color: #bdc3c7;
+  border-left-color: rgba(255, 255, 255, 0.2);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.theme-btn, .logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.theme-btn {
+  background: #f8f9fa;
+  color: #333;
+  border: 2px solid #e9ecef;
+}
+
+.theme-btn:hover {
+  background: #e9ecef;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.logout-btn {
+  background: linear-gradient(135deg, #ff7675 0%, #fd79a8 100%);
+  color: white;
+  border: 2px solid transparent;
+}
+
+.logout-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 118, 117, 0.3);
+}
+
+.app.dark .theme-btn {
+  background: #2c3e50;
+  color: #ecf0f1;
+  border-color: #5a6c7d;
+}
+
+.app.dark .theme-btn:hover {
+  background: #34495e;
+}
+
+/* Mobile Responsive Design */
+@media (max-width: 768px) {
   .app-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 40px;
-    background: white;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    padding: 15px 20px;
   }
-
-  .app.dark .app-header {
-    background: #34495e;
-    color: #ecf0f1;
-  }
-
+  
   .header-left {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-
-  .header-left .logo {
-    display: flex;
-    align-items: center;
     gap: 10px;
   }
-
+  
   .header-left .logo h1 {
-    font-size: 1.8rem;
-    font-weight: 700;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    font-size: 1.6rem;
   }
-
+  
   .welcome-text {
-    color: #666;
-    font-size: 0.9rem;
-    margin-left: 40px;
+    font-size: 0.85rem;
   }
-
-  .app.dark .welcome-text {
-    color: #bdc3c7;
+  
+  .theme-btn, .logout-btn {
+    padding: 8px 12px;
+    font-size: 0.85rem;
   }
+}
 
-  .header-right {
-    display: flex;
+@media (max-width: 600px) {
+  .app-header {
+    padding: 12px 15px;
+    flex-wrap: wrap;
     gap: 10px;
   }
-
+  
+  .header-left {
+    flex: 1;
+    min-width: 200px;
+  }
+  
+  .header-left .logo {
+    gap: 8px;
+  }
+  
+  .header-left .logo h1 {
+    font-size: 1.4rem;
+  }
+  
+ 
+  .header-right {
+    gap: 8px;
+  }
+  
   .theme-btn, .logout-btn {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 10px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    padding: 8px 10px;
+    font-size: 0.8rem;
   }
-
-  .theme-btn {
-    background: #f8f9fa;
-    color: #333;
+  
+  .logout-text {
+    display: none; /* Hide logout text on mobile */
   }
-
-  .theme-btn:hover {
-    background: #e9ecef;
-    transform: translateY(-2px);
+  .theme-text{
+     display: none;
   }
-
-  .logout-btn {
-    background: linear-gradient(135deg, #ff7675 0%, #fd79a8 100%);
-    color: white;
-  }
-
-  .logout-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(255, 118, 117, 0.3);
-  }
+}
 
   /* App Main */
   .app-main {
@@ -412,6 +512,18 @@
     align-items: flex-start;
     gap: 20px;
   }
+  .tasks-container.grid-view {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.task-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 
   .task-item:hover {
     transform: translateY(-5px);
@@ -537,25 +649,31 @@
   }
 
   /* Responsive Design */
-  @media (max-width: 768px) {
-    .app-header {
-      padding: 15px 20px;
-      flex-direction: column;
-      gap: 15px;
-      text-align: center;
-    }
+  @media (max-width: 600px) {
+     .logout-text {
+    display: none;
+  }
+  .app-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 15px;
+    gap: 10px;
+  }
 
-    .header-left {
-      align-items: center;
-    }
+  .header-left .logo h1 {
+    font-size: 1.4rem;
+  }
 
-    .welcome-text {
-      margin-left: 0;
-    }
+  .welcome-text {
+    font-size: 0.8rem;
+  }
 
-    .header-right {
-      justify-content: center;
-    }
+  .header-right {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
 
     .app-main {
       padding: 20px;
@@ -598,48 +716,51 @@
     }
   }
 
-  @media (max-width: 480px) {
-    .app-header {
-      padding: 10px 15px;
-    }
-
-    .header-left .logo h1 {
-      font-size: 1.5rem;
-    }
-
-    .app-main {
-      padding: 15px;
-    }
-
-    .task-form-container {
-      padding: 15px;
-    }
-
-    .form-header h3 {
-      font-size: 1.3rem;
-    }
-
-    .task-item {
-      padding: 20px;
-    }
-
-    .task-header h3 {
-      font-size: 1.1rem;
-    }
-
-    .login-card {
-      padding: 20px;
-    }
-
-    .login-header h1 {
-      font-size: 1.8rem;
-    }
-
-    .filter-btn {
-      padding: 8px 12px;
-      font-size: 0.75rem;
-    }
+@media (max-width: 480px) {
+  .app-header {
+    padding: 10px 12px;
   }
+  
+  .header-left .logo h1 {
+    font-size: 1.2rem;
+  }
+  
+  .logo-icon {
+    font-size: 1.6rem;
+  }
+  
+  .theme-btn, .logout-btn {
+    padding: 6px 8px;
+    font-size: 0.75rem;
+    min-width: 36px;
+    height: 36px;
+  }
+  
+  .header-right {
+    gap: 6px;
+  }
+}
+
+/* Ultra-small screens (320px and below) */
+@media (max-width: 320px) {
+  .app-header {
+    padding: 8px 10px;
+  }
+  
+  .header-left .logo h1 {
+    font-size: 1.1rem;
+  }
+  
+  .logo-icon {
+    font-size: 1.4rem;
+  }
+  
+  .theme-btn, .logout-btn {
+    padding: 5px 6px;
+    min-width: 32px;
+    height: 32px;
+  }
+}
 
   /* Dark mode theme button */
   .app.dark .theme-btn {

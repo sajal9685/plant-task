@@ -30,6 +30,7 @@ function TaskForm({ onAdd, onEdit, editingTask }) {
 
   return (
     <div className="task-form-container">
+      
       <div className="task-form">
         <div className="form-header">
           <h3>{editingTask ? "🌿 Edit Task" : "🌱 Plant New Task"}</h3>

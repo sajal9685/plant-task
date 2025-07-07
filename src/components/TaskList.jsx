@@ -10,7 +10,7 @@ function TaskList({ tasks, onToggle, onDelete, onEdit }) {
           <p>Plant your first task to start growing your productivity garden.</p>
         </div>
       ) : (
-        <div className="tasks-container">
+        <div className="tasks-container grid-view">
           {tasks.map((task) => (
             <TaskItem
               key={task.id}
@@ -25,6 +25,5 @@ function TaskList({ tasks, onToggle, onDelete, onEdit }) {
     </div>
   );
 }
-
 
 export default TaskList;
